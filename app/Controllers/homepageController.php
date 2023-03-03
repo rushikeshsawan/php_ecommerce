@@ -12,6 +12,31 @@ class homepageController extends BaseController
 {
     protected $encrypter;
 
+    public function sendemail()
+    {
+        echo    date("Y-m-d h:i:sa") . "<br>";
+        echo    date("Y-m-d h:i:sa", strtotime("+10 minutes"));
+
+        die();
+        $to = "sawant.rushikesh10@gmail.com";
+        $subject = "OTP for your Forgotten Password";
+        $otp = rand(100000, 999999);
+        $message = "<b>Following is the OTP for your forgotten password- {$otp}</b>";
+        $message .= "<h1>This is headline.</h1>";
+
+        $header = "From:rushikesh.sawant@darwinpgc.com \r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/html\r\n";
+
+        $retval = mail($to, $subject, $message, $header);
+
+        if ($retval == true) {
+            echo "Message sent successfully... {$otp}";
+        } else {
+            echo "Message could not be sent...";
+        }
+    }
+
     public function index()
     {
 

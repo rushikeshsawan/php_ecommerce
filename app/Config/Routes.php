@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'homepageController::index');
 $routes->get('/home','homepageController::index');
 $routes->get('/logout','homepageController::logout');
+$routes->get('/sendemail','homepageController::sendemail');
 $routes->post('/login','homepageController::login');
 $routes->post('/sign-up','homepageController::signup');
 
