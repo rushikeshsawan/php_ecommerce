@@ -1985,6 +1985,7 @@
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a class="nav-link active" id="nav-log-in-tab" data-toggle="tab" href="#nav-log-in" role="tab" aria-controls="nav-log-in" aria-selected="true">Log in</a>
                             <a class="nav-link" id="nav-register-tab" data-toggle="tab" href="#nav-register" role="tab" aria-controls="nav-register" aria-selected="false">Register</a>
+                          
                         </div>
                     </nav>
                     <button type="button" class="close opacity-10 fs-32 pt-1 position-absolute" data-dismiss="modal" aria-label="Close" style="right: 30px">
@@ -1996,9 +1997,16 @@
                         <div class="tab-pane fade show active" id="nav-log-in" role="tabpanel" aria-labelledby="nav-log-in-tab">
                             <h4 class="fs-34 text-center mb-6">Sign In</h4>
                             <p class="text-center fs-16 mb-7">Don’t have an account yet? <a href="" class="text-secondary border-bottom text-decoration-none">Sign up</a> for free</p>
+                           <div class="text text-danger"> <?php
+if (session()->get('error')) {
+    echo session()->get('error');
+?><?php
+}
+?>
+</div>
                             <form action="<?= base_url() ?>login" method="post">
-                                <input name="email" name="email" type="email" class="form-control border-0 mb-3" placeholder="Your email" required>
-                                <input name="password" name="password" type="password" class="form-control border-0" placeholder="Password" required>
+                                <input name="email" value="<?= set_value('email') ?>" name="email" type="email" class="form-control border-0 mb-3" placeholder="Your email" required>
+                                <input name="password" value="<?= set_value('password') ?>" name="password" type="password" class="form-control border-0" placeholder="Password" required>
                                 <div class="d-flex align-items-center justify-content-between mt-5 mb-4">
                                     <div class="custom-control custom-checkbox">
                                         <input name="stay-signed-in" type="checkbox" class="custom-control-input" id="staySignedIn">
@@ -2226,6 +2234,7 @@ if (session()->get('error')) {
     <script>
         $(document).ready(function() {
             $("#sign-in").modal('show');
+            
 
         });
     </script>

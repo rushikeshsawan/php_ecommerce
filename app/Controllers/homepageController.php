@@ -78,21 +78,30 @@ class homepageController extends BaseController
         $userModel = new userModel();
 
         $session = session();
+        $isValid=['email'=>'required|valid_email|is_not_unique[userlogin.uname]',
+                    'password'=>'required|min_length[8]'];
+                    
+                    if($this->validate($isValid)){
+                        
+                        $email = $this->request->getVar()['email'];
+                        $password = md5($this->request->getVar()['password']);
+                        $result = $userModel->where('uname', $email)->where('pass', $password)->findAll();
+                        if (count($result) > 0) {
+                            // echo "<h1>success</h1>";
+                            // die();
+                            $session->set("user_id", $result[0]['id']);
+                            return redirect()->to("/home");
+                        } else {
+                            // echo "<h1>error</h1>";
+                            // die();
+                            $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
+                            return redirect()->to('/home');
+                        }
+                    }else{
+                        $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
+                        return redirect()->back()->withInput();
+                    }
 
-        $email = $this->request->getVar()['email'];
-        $password = md5($this->request->getVar()['password']);
-        $result = $userModel->where('uname', $email)->where('pass', $password)->findAll();
-        if (count($result) > 0) {
-            // echo "<h1>success</h1>";
-            // die();
-            $session->set("user_id", $result[0]['id']);
-            return redirect()->to("/home");
-        } else {
-            // echo "<h1>error</h1>";
-            // die();
-            $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
-            return redirect()->to('/home');
-        }
     }
 
     public function signup()
