@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class categoryModel extends Model
+class productModel extends Model
 {
-    protected $table      = 'categories';
+    protected $table      = 'product';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -14,7 +14,7 @@ class categoryModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['category_name', 'category_desc','category_img','user_id','status','created_at'];
+    protected $allowedFields = ['id', 'product_name','product_desc','product_img','product_price','category_id','rating','user_id','created_at','status'];
 
     // Dates
     protected $useTimestamps = false;
@@ -40,6 +40,8 @@ class categoryModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 }
+
+
 
 
 ?>

@@ -1,3 +1,7 @@
+<?php
+// echo "<pre>";
+// print_r($featureProduct);
+?>
 <!doctype html>
 <html lang="en">
 
@@ -345,10 +349,14 @@
                         <div class="tab-content p-0 shadow-none" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-Skincare" role="tabpanel" aria-labelledby="pills-Skincare-tab">
                                 <div class="row">
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
+                                <?php 
+                                if(count($featureProduct)>0){
+                                    foreach($featureProduct as $product){
+                                        ?>
+                                          <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
                                         <div class="card border-0 product">
                                             <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-01.jpg" alt="Facial cleanser">
+                                                <img src="<?= $product['product_img']?>" alt="Facial cleanser">
                                                 <div class="card-img-overlay d-flex p-3">
                                                     <div>
                                                         <span class="badge badge-primary">-20%</span>
@@ -359,8 +367,8 @@
                                                                 <use xlink:href="#icon-shopping-bag-open-light"></use>
                                                             </svg>
                                                         </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
+                                                        <a href="www.google.com" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
+                                                            <span data-toggle="modal" onclick="viewproduct(<?= $product['id']?>)" data-target="#quick-view">
                                                                 <svg class="icon icon-eye-light fs-24">
                                                                     <use xlink:href="#icon-eye-light"></use>
                                                                 </svg>
@@ -371,23 +379,16 @@
                                                                 <use xlink:href="#icon-star-light"></use>
                                                             </svg>
                                                         </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="card-body px-0 pt-4 text-center">
                                                 <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
                                                     <span class="fs-13 font-weight-500 text-decoration-through text-body pr-1">$39.00</span>
-                                                    <span>$29.00</span>
+                                                    <span>$ <?= $product['product_price']?></span>
                                                 </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Geometric
-                                                        Fleur CZ Diamond Ring</a>
+                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href=""><?= $product['product_name']?></a>
                                                 </h2>
                                                 <div class="d-flex align-items-center justify-content-center flex-wrap">
                                                     <ul class="list-inline mb-0 lh-1">
@@ -402,443 +403,23 @@
                                                         <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
                                                         </li>
                                                     </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
+                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1"><?= $product['rating'] ?> Rating</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-02.jpg" alt="Bio-shroom Rejuvenating Serum">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Circular
-                                                        Diamond Studded</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-03.jpg" alt="Coffee Bean Caffeine Eye Cream">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                        <span class="badge badge-warning">New</span>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Silver
-                                                        Cubic CZ</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-04.jpg" alt="Coffee Bean Caffeine Eye Cream">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Enchanting
-                                                        Pearl Cubic Zirconia</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-05.jpg" alt="Coffee Bean Caffeine Eye Cream">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                        <span class="badge badge-primary">-20%</span>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Delicate
-                                                        Geometric CZ Diamond Ring</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-06.jpg" alt="Coffee Bean Caffeine Eye Cream">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Artistic
-                                                        Elegant Floral Cubic</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-07.jpg" alt="Coffee Bean Caffeine Eye Cream">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                        <span class="badge badge-warning">New</span>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Delicate
-                                                        Geometric CZ Diamond</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= base_url() ?>images/product/product-08.jpg" alt="Coffee Bean Caffeine Eye Cream">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                        <span class="badge badge-primary">-20%</span>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <!-- <a href="" data-toggle="tooltip" data-placement="left"
-                                                            title="Compare"
-                                                            class="add-to-compare ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle">
-                                                            <svg class="icon icon-arrows-left-right-light fs-24">
-                                                                <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span>$29.00</span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href="">Alluring
-                                                        Bloom Cubic Zirconia</a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1">2947
-                                                        reviews</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        
+                                        
+                                        
+                                        <?php
+                                        // echo $product['product_name'] ."<br>";
+                                        // echo $product['product_desc'] ."<br>";
+                                        // echo $product['product_img'] ."<br>";
+                                        // echo $product['product_price'] ."<br>";
+                                    }
+
+                                }
+                                ?>
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="pills-Bodycare" role="tabpanel" aria-labelledby="pills-Bodycare-tab">
@@ -1805,6 +1386,7 @@
                 <p class="fs-15 font-weight-500 text-body mb-5"><span class="d-inline-block mr-2 fs-15 text-secondary"><i class="far fa-check-circle"></i></span>
                     Your cart is saved for the next <span class="text-secondary">4m34s</span></p>
             </div>
+            <!--  -->
             <div class="card-body px-6 pt-7 overflow-y-auto">
                 <div class="mb-4 d-flex">
                     <a href="" class="d-flex align-items-center mr-2 text-muted"><i class="fal fa-times"></i></a>
@@ -1816,7 +1398,7 @@
                             <div class="cart-price pr-6">
                                 <p class="fs-14 font-weight-bold text-secondary mb-1"><span class="font-weight-500 fs-13 text-line-through text-body mr-1">$39.00</span>$29.00
                                 </p>
-                                <a href="" class="text-secondary">Geometric Fleur CZ Diamond Ring</a>
+                                <a href="" class="text-secondary" >Geometric Fleur CZ Diamond Ring</a>
                             </div>
                             <div class="position-relative ml-auto">
                                 <div class="input-group">
@@ -1885,6 +1467,7 @@
                     Out</a>
                 <a href="shopping-cart.html" class="btn btn-outline-secondary btn-block">View Cart</a>
             </div>
+            <!--  -->
         </div>
     </div>
     <div class="mfp-hide search-popup mfp-with-anim" id="search-popup">
@@ -1985,7 +1568,7 @@
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a class="nav-link active" id="nav-log-in-tab" data-toggle="tab" href="#nav-log-in" role="tab" aria-controls="nav-log-in" aria-selected="true">Log in</a>
                             <a class="nav-link" id="nav-register-tab" data-toggle="tab" href="#nav-register" role="tab" aria-controls="nav-register" aria-selected="false">Register</a>
-                          
+
                         </div>
                     </nav>
                     <button type="button" class="close opacity-10 fs-32 pt-1 position-absolute" data-dismiss="modal" aria-label="Close" style="right: 30px">
@@ -1997,13 +1580,19 @@
                         <div class="tab-pane fade show active" id="nav-log-in" role="tabpanel" aria-labelledby="nav-log-in-tab">
                             <h4 class="fs-34 text-center mb-6">Sign In</h4>
                             <p class="text-center fs-16 mb-7">Don’t have an account yet? <a href="" class="text-secondary border-bottom text-decoration-none">Sign up</a> for free</p>
-                           <div class="text text-danger"> <?php
-if (session()->get('error')) {
-    echo session()->get('error');
-?><?php
-}
-?>
-</div>
+                            <?php
+                            if (session()->get('error')) {
+                            ?>
+                                <div class=" alert alert-danger alert-dismissible fade show text text-danger" role="alert">
+
+                                    <?php
+                                    echo session()->get('error');
+                                    ?>
+                                </div>
+
+                            <?php
+                            }
+                            ?>
                             <form action="<?= base_url() ?>login" method="post">
                                 <input name="email" value="<?= set_value('email') ?>" name="email" type="email" class="form-control border-0 mb-3" placeholder="Your email" required>
                                 <input name="password" value="<?= set_value('password') ?>" name="password" type="password" class="form-control border-0" placeholder="Password" required>
@@ -2013,7 +1602,7 @@ if (session()->get('error')) {
                                         <label class="custom-control-label text-body" for="staySignedIn">Stay signed
                                             in</label>
                                     </div>
-                                    <a href="" class="text-secondary">Forgot your password?</a>
+                                    <!-- <a href="" class="text-secondary">Forgot your password?</a> -->
                                 </div>
                                 <button type="submit" value="Login" class="btn btn-secondary btn-block bg-hover-primary border-hover-primary">Log
                                     In</button>
@@ -2031,12 +1620,12 @@ if (session()->get('error')) {
                             <h4 class="fs-34 text-center mb-6">Sign Up</h4>
                             <p class="text-center fs-16 mb-7">Already have an account? <a href="" class="text-secondary border-bottom text-decoration-none">Log in</a></p>
                             <form action="<?= base_url() ?>sign-up" method="post">
-                                <input name="first-name" type="text" class="form-control border-0 mb-3" placeholder="First name" required>
-                                <input name="last-name" type="text" class="form-control border-0 mb-3" placeholder="Last name" required>
-                                <input name="email" type="email" class="form-control border-0 mb-3" placeholder="Your email" required>
-                                <input name="password" type="password" class="form-control border-0" placeholder="Password" required>
+                                <input name="first-name" value="<?= set_value('first-name') ?>" type="text" class="form-control border-0 mb-3" placeholder="First name" required>
+                                <input name="last-name" type="text" value="<?= set_value('last-name') ?>" class="form-control border-0 mb-3" placeholder="Last name" required>
+                                <input name="eemail" type="email" value="<?= set_value('eemail') ?>" class="form-control border-0 mb-3" placeholder="Your email" required>
+                                <input name="ppassword" type="password" value="<?= set_value('ppassword') ?>" class="form-control border-0" placeholder="Password" required>
                                 <div class="custom-control custom-checkbox mt-4 mb-5 mr-xl-6">
-                                    <input name="agree" type="checkbox" class="custom-control-input" id="termsOfUse">
+                                    <input name="agree" type="checkbox" value="<?= set_value('agree') ?>" class="custom-control-input" id="termsOfUse">
                                     <label class="custom-control-label text-body" for="termsOfUse">
                                         Yes, I agree with Grace <a href="">Privacy Policy</a> and <a href="">Terms of
                                             Use</a>
@@ -2089,8 +1678,8 @@ if (session()->get('error')) {
                                 <div class="view-slider-for mx-0">
                                     <div class="box px-0">
                                         <div class="card p-0 rounded-0 border-0">
-                                            <a href="<?= base_url() ?>images/product/product-01.jpg" class="card-img">
-                                                <img src="<?= base_url() ?>images/product/product-01.jpg" alt="product gallery">
+                                            <a class="product_img" href="<?= base_url() ?>images/product/product-01.jpg" class="card-img">
+                                                <img class="product_img" src="<?= base_url() ?>images/product/product-01.jpg" alt="product gallery">
                                             </a>
                                         </div>
                                     </div>
@@ -2117,8 +1706,8 @@ if (session()->get('error')) {
                                     </div>
                                 </div>
                                 <div class="view-slider-nav mx-n1">
-                                    <div class="box py-4 px-1 cursor-pointer">
-                                        <img src="<?= base_url() ?>images/product/product-01.jpg" alt="product gallery">
+                                    <!-- <div class="box py-4 px-1 cursor-pointer">
+                                        <img  src="<?= base_url() ?>images/product/product-01.jpg" alt="product gallery">
                                     </div>
                                     <div class="box py-4 px-1 cursor-pointer">
                                         <img src="<?= base_url() ?>images/product/product-02.jpg" alt="product gallery">
@@ -2128,19 +1717,19 @@ if (session()->get('error')) {
                                     </div>
                                     <div class="box py-4 px-1 cursor-pointer">
                                         <img src="<?= base_url() ?>images/product/product-04.jpg" alt="product gallery">
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 pl-xl-6 pr-xl-8">
                             <p class="d-flex align-items-center mb-3">
                                 <span class="text-line-through">$39.00</span>
-                                <span class="fs-18 text-secondary font-weight-bold ml-3">$29.00</span>
+                                <span class="fs-18 text-secondary font-weight-bold ml-3" id="product_price">$29.00</span>
                                 <span class="badge badge-primary fs-16 ml-4 font-weight-600 px-3">20%</span>
                             </p>
-                            <h2 class="fs-24 mb-2">Geometric Fleur CZ Diamond Ring</h2>
+                            <h2 class="fs-24 mb-2" id="product_name">Geometric Fleur CZ Diamond Ring</h2>
                             <div class="d-flex align-items-center flex-wrap mb-3 lh-12">
-                                <p class="mb-0 font-weight-600 text-secondary">4.86</p>
+                                <p class="mb-0 font-weight-600 text-secondary" >4.86</p>
                                 <ul class="list-inline d-flex mb-0 px-3 rating-result">
                                     <li class="list-inline-item mr-0">
                                         <span class="text-primary fs-12 lh-2"><i class="fas fa-star"></i></span>
@@ -2160,7 +1749,7 @@ if (session()->get('error')) {
                                 </ul>
                                 <a href="" class="pl-3 border-left border-gray-2 text-body">Read 2947 reviews</a>
                             </div>
-                            <p class="mb-4 mr-xl-6">A diamond ring is a type of jewelry that features one or more
+                            <p class="mb-4 mr-xl-6" id="product_desc">A diamond ring is a type of jewelry that features one or more
                                 diamonds mounted onto a band, usually made of precious metals such as gold or platinum.
                             </p>
                             <p class="mb-2">
@@ -2234,13 +1823,33 @@ if (session()->get('error')) {
     <script>
         $(document).ready(function() {
             $("#sign-in").modal('show');
-            
+
 
         });
     </script>
 <?php
 }
 ?>
+<script>
+    function viewproduct(id){
+        $.post("/getproductdata", {
+                    id: id
+                },
+                function(data, status) {
+                    let dataa = jQuery.parseJSON(data);
+                   
+                    $("#product_name").text(dataa[0]['product_name']);
+                    $("#product_price").text("$ "+dataa[0]['product_price']);
+                    $("#product_desc").text(dataa[0]['product_desc']);
+                    $(".product_img").attr("src",dataa[0]['product_img']);
+                    $(".product_img").attr("href",dataa[0]['product_img']);
+                  
+                });
+        }
+    $(document).ready(function(){
+        
+    })
+</script>
 
 <!-- Mirrored from templates.g5plus.net/glowing/home-02.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Feb 2023 11:42:10 GMT -->
 

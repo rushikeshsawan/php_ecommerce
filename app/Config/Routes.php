@@ -34,6 +34,7 @@ $routes->get('/home','homepageController::index');
 $routes->get('/logout','homepageController::logout');
 $routes->post('/login','homepageController::login');
 $routes->post('/sign-up','homepageController::signup');
+$routes->post('getproductdata','homepageController::getproductdata');
 
 /*
  * --------------------------------------------------------------------

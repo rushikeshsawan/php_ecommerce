@@ -5,13 +5,17 @@ namespace App\Controllers;
 use App\Models\bannerModel;
 use App\Models\categoryModel;
 use App\Models\featuredCollectionModel;
+use App\Models\productModel;
 use App\Models\userModel;
 use CodeIgniter\Encryption\Encryption;
 
 class homepageController extends BaseController
 {
-    protected $encrypter;
-
+    protected $db;
+    public function __construct()
+    {
+        $this->db = db_connect();
+    }
     public function sendemail()
     {
         echo    date("Y-m-d h:i:sa") . "<br>";
@@ -37,6 +41,15 @@ class homepageController extends BaseController
         }
     }
 
+    public function getproductdata(){
+        $id = $this->request->getVar();
+            $userModel = new productModel();
+            $data = $userModel->where($id)->find();
+            // print_r($data);
+            return json_encode($data);
+
+    }
+
     public function index()
     {
 
@@ -45,8 +58,13 @@ class homepageController extends BaseController
         $categorydata = $homepageController->getCategoryData();
         $featuredCollectionModel = $homepageController->getfeaturedCollectionData();
         $bannerModel = $homepageController->getBannerModel();
+        $featureProduct=$homepageController->getFeatureProduct();
+        return view('index', ['categories' => $categorydata, 'featured' => $featuredCollectionModel, 'bannerModel' => $bannerModel,'featureProduct'=>$featureProduct]);
+    }
 
-        return view('index', ['categories' => $categorydata, 'featured' => $featuredCollectionModel, 'bannerModel' => $bannerModel]);
+    public function getFeatureProduct()
+    {
+        return $res = $this->db->query("SELECT * FROM `product` WHERE status=1 ORDER BY CAST(product_price AS DECIMAL(10,2)) DESC LIMIT 8")->getResultArray();
     }
 
     public function getBannerModel()
@@ -78,30 +96,31 @@ class homepageController extends BaseController
         $userModel = new userModel();
 
         $session = session();
-        $isValid=['email'=>'required|valid_email|is_not_unique[userlogin.uname]',
-                    'password'=>'required|min_length[8]'];
-                    
-                    if($this->validate($isValid)){
-                        
-                        $email = $this->request->getVar()['email'];
-                        $password = md5($this->request->getVar()['password']);
-                        $result = $userModel->where('uname', $email)->where('pass', $password)->findAll();
-                        if (count($result) > 0) {
-                            // echo "<h1>success</h1>";
-                            // die();
-                            $session->set("user_id", $result[0]['id']);
-                            return redirect()->to("/home");
-                        } else {
-                            // echo "<h1>error</h1>";
-                            // die();
-                            $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
-                            return redirect()->to('/home');
-                        }
-                    }else{
-                        $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
-                        return redirect()->back()->withInput();
-                    }
+        $isValid = [
+            'email' => 'required|valid_email|is_not_unique[admin_login.email]',
+            'password' => 'required|min_length[8]'
+        ];
 
+        if ($this->validate($isValid)) {
+
+            $email = $this->request->getVar()['email'];
+            $password = md5($this->request->getVar()['password']);
+            $result = $userModel->where('email', $email)->where('password', $password)->findAll();
+            if (count($result) > 0) {
+                // echo "<h1>success</h1>";
+                // die();
+                $session->set("user_id", $result[0]['id']);
+                return redirect()->to("/home");
+            } else {
+                // echo "<h1>error</h1>";
+                // die();
+                $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
+                return redirect()->to('/home');
+            }
+        } else {
+            $session->setFlashdata("error", "<strong>Invalid Credentials!</strong> Please Check Your Email & Password.");
+            return redirect()->back()->withInput();
+        }
     }
 
     public function signup()
@@ -109,26 +128,37 @@ class homepageController extends BaseController
         $session = session();
         $userModel = new userModel();
         if ($this->request->getVar()['agree'] == 'on') {
-            $firstname = $this->request->getVar()['first-name'];
-            $lastname = $this->request->getVar()['last-name'];
-            $email = $this->request->getVar()['email'];
-            $password = md5($this->request->getVar()['password']);
-
-            $data = [
-                "name" => $firstname . " " . $lastname,
-                "uname" => $email,
-                "pass" => $password
+            $isValid = [
+                'first-name' => 'required|min_length[3]',
+                'last-name' => 'required|min_length[3]',
+                'eemail' => 'required|valid_email|is_unique[admin_login.email]',
+                'ppassword' => 'required|min_length[8]'
             ];
-            if ($userModel->insert($data)) {
-                $session->setFlashdata("success", "<strong>Registration Successfull!</strong> Please Login to continue.");
-                return redirect()->to("/home");
+            if ($this->validate($isValid)) {
+                $firstname = $this->request->getVar()['first-name'];
+                $lastname = $this->request->getVar()['last-name'];
+                $email = $this->request->getVar()['eemail'];
+                $password = md5($this->request->getVar()['ppassword']);
+
+                $data = [
+                    "uname" => $firstname . " " . $lastname,
+                    "email" => $email,
+                    "password" => $password
+                ];
+                if ($userModel->insert($data)) {
+                    $session->setFlashdata("success", "<strong>Registration Successfull!</strong> Please Login to continue.");
+                    return redirect()->to("/home");
+                } else {
+                    $session->setFlashdata("error", "<strong>Registration failed!</strong> Please try after sometime.");
+                    return redirect()->to("/home");
+                }
             } else {
-                $session->setFlashdata("error", "<strong>Registration failed!</strong> Please try after sometime.");
-                return redirect()->to("/home");
-                echo "data not inserted successfully";
+                $session->setFlashdata("error", "<strong>Registration failed!</strong> Please Check All the Details.");
+                return redirect()->back()->withInput();
             }
-            // echo $encrypter->decrypt($encrypter->encrypt($password));
-            // die();
+        } else {
+            $session->setFlashdata("error", "<strong>Registration failed!</strong> Please Check All the Details.");
+            return redirect()->back()->withInput();
         }
     }
 
