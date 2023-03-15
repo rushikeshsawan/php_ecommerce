@@ -193,7 +193,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link position-relative px-4 menu-cart py-0 d-inline-flex align-items-center mr-n2" href="#" data-canvas="true" data-canvas-options='{"container":".cart-canvas"}'>
                                             <span class="mr-2 font-weight-bold fs-15">$0.00</span>
-                                            <svg class="icon icon-shopping-bag-open-light">
+                                            <svg class="icon icon-shopping-bag-open-light" onclick="cart()">
                                                 <use xlink:href="#icon-shopping-bag-open-light"></use>
                                             </svg>
                                             <span class="position-absolute number">0</span>
@@ -349,77 +349,76 @@
                         <div class="tab-content p-0 shadow-none" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-Skincare" role="tabpanel" aria-labelledby="pills-Skincare-tab">
                                 <div class="row">
-                                <?php 
-                                if(count($featureProduct)>0){
-                                    foreach($featureProduct as $product){
-                                        ?>
-                                          <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
-                                        <div class="card border-0 product">
-                                            <div class="position-relative">
-                                                <img src="<?= $product['product_img']?>" alt="Facial cleanser">
-                                                <div class="card-img-overlay d-flex p-3">
-                                                    <div>
-                                                        <span class="badge badge-primary">-20%</span>
-                                                    </div>
-                                                    <div class="my-auto w-100 content-change-vertical">
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-shopping-bag-open-light fs-24">
-                                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        <a href="www.google.com" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
-                                                            <span data-toggle="modal" onclick="viewproduct(<?= $product['id']?>)" data-target="#quick-view">
-                                                                <svg class="icon icon-eye-light fs-24">
-                                                                    <use xlink:href="#icon-eye-light"></use>
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
-                                                            <svg class="icon icon-star-light fs-24">
-                                                                <use xlink:href="#icon-star-light"></use>
-                                                            </svg>
-                                                        </a>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body px-0 pt-4 text-center">
-                                                <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
-                                                    <span class="fs-13 font-weight-500 text-decoration-through text-body pr-1">$39.00</span>
-                                                    <span>$ <?= $product['product_price']?></span>
-                                                </p>
-                                                <h2 class="card-title fs-15 font-weight-500 mb-2"><a href=""><?= $product['product_name']?></a>
-                                                </h2>
-                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                    <ul class="list-inline mb-0 lh-1">
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                        <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="card-text fs-14 font-weight-400 pl-2 lh-1"><?= $product['rating'] ?> Rating</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        
-                                        
-                                        
-                                        <?php
-                                        // echo $product['product_name'] ."<br>";
-                                        // echo $product['product_desc'] ."<br>";
-                                        // echo $product['product_img'] ."<br>";
-                                        // echo $product['product_price'] ."<br>";
-                                    }
+                                    <?php
+                                    if (count($featureProduct) > 0) {
+                                        foreach ($featureProduct as $product) {
+                                    ?>
+                                            <div class="col-lg-3 col-sm-6 mb-5" data-animate="fadeInUp">
+                                                <div class="card border-0 product">
+                                                    <div class="position-relative">
+                                                        <img src="<?= $product['product_img'] ?>" alt="Facial cleanser">
+                                                        <div class="card-img-overlay d-flex p-3">
+                                                            <div>
+                                                                <span class="badge badge-primary">-20%</span>
+                                                            </div>
+                                                            <div class="my-auto w-100 content-change-vertical">
+                                                                <a href="" data-toggle="tooltip" data-placement="left" title="View products" class="add-to-cart ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
+                                                                    <svg class="icon icon-shopping-bag-open-light fs-24">
+                                                                        <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                                                    </svg>
+                                                                </a>
+                                                                <a href="www.google.com" data-toggle="tooltip" data-placement="left" title="Quick view" class="preview ml-auto d-md-flex align-items-center justify-content-center cursor-pointer text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2 d-none">
+                                                                    <span data-toggle="modal" onclick="viewproduct(<?= $product['id'] ?>)" data-target="#quick-view">
+                                                                        <svg class="icon icon-eye-light fs-24">
+                                                                            <use xlink:href="#icon-eye-light"></use>
+                                                                        </svg>
+                                                                    </span>
+                                                                </a>
+                                                                <a href="" data-toggle="tooltip" data-placement="left" title="Add to wishlist" class="add-to-wishlist ml-auto d-flex align-items-center justify-content-center text-secondary bg-white hover-white bg-hover-secondary w-48px h-48px rounded-circle mb-2">
+                                                                    <svg class="icon icon-star-light fs-24">
+                                                                        <use xlink:href="#icon-star-light"></use>
+                                                                    </svg>
+                                                                </a>
 
-                                }
-                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body px-0 pt-4 text-center">
+                                                        <p class="card-text font-weight-bold fs-16 mb-1 text-secondary">
+                                                            <span class="fs-13 font-weight-500 text-decoration-through text-body pr-1">$39.00</span>
+                                                            <span>$ <?= $product['product_price'] ?></span>
+                                                        </p>
+                                                        <h2 class="card-title fs-15 font-weight-500 mb-2"><a href=""><?= $product['product_name'] ?></a>
+                                                        </h2>
+                                                        <div class="d-flex align-items-center justify-content-center flex-wrap">
+                                                            <ul class="list-inline mb-0 lh-1">
+                                                                <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
+                                                                </li>
+                                                                <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
+                                                                </li>
+                                                                <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
+                                                                </li>
+                                                                <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
+                                                                </li>
+                                                                <li class="list-inline-item fs-12 text-primary mr-0"><i class="fas fa-star"></i>
+                                                                </li>
+                                                            </ul>
+                                                            <span class="card-text fs-14 font-weight-400 pl-2 lh-1"><?= $product['rating'] ?> Rating</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                    <?php
+                                            // echo $product['product_name'] ."<br>";
+                                            // echo $product['product_desc'] ."<br>";
+                                            // echo $product['product_img'] ."<br>";
+                                            // echo $product['product_price'] ."<br>";
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="pills-Bodycare" role="tabpanel" aria-labelledby="pills-Bodycare-tab">
@@ -1388,80 +1387,17 @@
             </div>
             <!--  -->
             <div class="card-body px-6 pt-7 overflow-y-auto">
-                <div class="mb-4 d-flex">
-                    <a href="" class="d-flex align-items-center mr-2 text-muted"><i class="fal fa-times"></i></a>
-                    <div class="media w-100">
-                        <div class="w-60px mr-3">
-                            <img src="<?= base_url() ?>images/product/product-01.jpg" alt="atural Coconut Cleansing Oil">
-                        </div>
-                        <div class="media-body d-flex">
-                            <div class="cart-price pr-6">
-                                <p class="fs-14 font-weight-bold text-secondary mb-1"><span class="font-weight-500 fs-13 text-line-through text-body mr-1">$39.00</span>$29.00
-                                </p>
-                                <a href="" class="text-secondary" >Geometric Fleur CZ Diamond Ring</a>
-                            </div>
-                            <div class="position-relative ml-auto">
-                                <div class="input-group">
-                                    <a href="" class="down position-absolute pos-fixed-left-center pl-2"><i class="far fa-minus"></i></a>
-                                    <input type="number" class="number-cart w-90px px-6 text-center h-40px bg-input border-0" value="1">
-                                    <a href="" class="up position-absolute pos-fixed-right-center pr-2"><i class="far fa-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                
+                <div id="addcart">
+
                 </div>
-                <div class="mb-4 d-flex">
-                    <a href="" class="d-flex align-items-center mr-2 text-muted"><i class="fal fa-times"></i></a>
-                    <div class="media w-100">
-                        <div class="w-60px mr-3">
-                            <img src="<?= base_url() ?>images/product/product-02.jpg" alt="Super Pure">
-                        </div>
-                        <div class="media-body d-flex">
-                            <div class="cart-price pr-6">
-                                <p class="fs-14 font-weight-bold text-secondary mb-1"><span class="font-weight-500 fs-13 text-line-through text-body mr-1">$39.00</span>$29.00
-                                </p>
-                                <a href="" class="text-secondary">Super Pure</a>
-                            </div>
-                            <div class="position-relative ml-auto">
-                                <div class="input-group">
-                                    <a href="" class="down position-absolute pos-fixed-left-center pl-2"><i class="far fa-minus"></i></a>
-                                    <input type="number" class="number-cart w-90px px-6 text-center h-40px bg-input border-0" value="1">
-                                    <a href="" class="up position-absolute pos-fixed-right-center pr-2"><i class="far fa-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-4 d-flex">
-                    <a href="" class="d-flex align-items-center mr-2 text-muted"><i class="fal fa-times"></i></a>
-                    <div class="media w-100">
-                        <div class="w-60px mr-3">
-                            <img src="<?= base_url() ?>images/product/product-03.jpg" alt="Cleansing Balm">
-                        </div>
-                        <div class="media-body d-flex">
-                            <div class="cart-price pr-6">
-                                <p class="fs-14 font-weight-bold text-secondary mb-1"><span class="font-weight-500 fs-13 text-line-through text-body mr-1">$39.00</span>$29.00
-                                </p>
-                                <a href="" class="text-secondary">Cleansing Balm</a>
-                            </div>
-                            <div class="position-relative ml-auto">
-                                <div class="input-group">
-                                    <a href="" class="down position-absolute pos-fixed-left-center pl-2"><i class="far fa-minus"></i></a>
-                                    <input type="number" class="number-cart w-90px px-6 text-center h-40px bg-input border-0" value="1">
-                                    <a href="" class="up position-absolute pos-fixed-right-center pr-2"><i class="far fa-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
             <div class="card-footer mt-auto border-0 bg-transparent px-6 pb-0 pt-5">
                 <div class="d-flex align-items-center mb-2">
                     <span class="text-secondary fs-15">Total price:</span>
-                    <span class="d-block ml-auto fs-24 font-weight-bold text-secondary">$106.00</span>
+                    <span class="d-block ml-auto fs-24 font-weight-bold text-secondary" id="totalprice"></span>
                 </div>
                 <a href="" class="btn btn-secondary btn-block mb-3 bg-hover-primary border-hover-primary">Check
                     Out</a>
@@ -1729,7 +1665,7 @@
                             </p>
                             <h2 class="fs-24 mb-2" id="product_name">Geometric Fleur CZ Diamond Ring</h2>
                             <div class="d-flex align-items-center flex-wrap mb-3 lh-12">
-                                <p class="mb-0 font-weight-600 text-secondary" >4.86</p>
+                                <p class="mb-0 font-weight-600 text-secondary">4.86</p>
                                 <ul class="list-inline d-flex mb-0 px-3 rating-result">
                                     <li class="list-inline-item mr-0">
                                         <span class="text-primary fs-12 lh-2"><i class="fas fa-star"></i></span>
@@ -1780,9 +1716,9 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-8 mb-6 w-100 px-2">
-                                        <button type="submit" class="btn btn-lg fs-18 btn-secondary btn-block h-60 bg-hover-primary border-0">Add
+                                        <a href="#" type="submit" onclick="addtobag()" id="addtobag" class="btn btn-lg fs-18 btn-secondary btn-block h-60 bg-hover-primary border-0">Add
                                             To Bag
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -1797,7 +1733,7 @@
                                     <svg class="icon icon-ShareNetwork">
                                         <use xlink:href="#icon-ShareNetwork"></use>
                                     </svg>
-                                    <span class="ml-2">Share</span>
+                                    <span class="ml-2">Share me</span>
                                 </a>
                             </div>
                             <ul class="list-unstyled border-top pt-5 mt-5">
@@ -1831,24 +1767,123 @@ if (session()->get('error')) {
 }
 ?>
 <script>
-    function viewproduct(id){
+    var idd;
+
+    function viewproduct(id) {
         $.post("/getproductdata", {
-                    id: id
-                },
-                function(data, status) {
-                    let dataa = jQuery.parseJSON(data);
-                   
-                    $("#product_name").text(dataa[0]['product_name']);
-                    $("#product_price").text("$ "+dataa[0]['product_price']);
-                    $("#product_desc").text(dataa[0]['product_desc']);
-                    $(".product_img").attr("src",dataa[0]['product_img']);
-                    $(".product_img").attr("href",dataa[0]['product_img']);
-                  
-                });
-        }
-    $(document).ready(function(){
-        
-    })
+                id: id
+            },
+            function(data, status) {
+                let dataa = jQuery.parseJSON(data);
+                idd = dataa[0]['id'];
+                $("#product_name").text(dataa[0]['product_name']);
+                $("#product_price").text("$ " + dataa[0]['product_price']);
+                $("#product_desc").text(dataa[0]['product_desc']);
+                $(".product_img").attr("src", dataa[0]['product_img']);
+                $(".product_img").attr("href", dataa[0]['product_img']);
+
+            });
+    }
+
+    function addtobag() {
+        $.post("/saveproductcart", {
+                id: idd
+            },
+            function(data, status) {
+                console.log(data, status);
+
+            });
+        $.post("/getCart",
+            function(data, status) {
+                console.log(data, status);
+
+            });
+    }
+
+ 
+
+    function cart() {
+        $.post("/getsessioncart",
+            function(data, status) {
+                let dataa = jQuery.parseJSON(data);
+                $("#addcart").empty();
+                var price=0;
+                if(Array.isArray(dataa) && dataa.length){
+
+                
+                for (let i = 0; i < dataa.length; i++) {
+                    $.post("/getproductdata", {
+                        id: dataa[i]['id']
+                    }, function(data, status) {
+                        data = jQuery.parseJSON(data);
+                        $("#totalprice").empty();
+                        
+                        let d = "<div class='mb-4 d-flex'>" +
+                        "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
+                        "<div class='media w-100'>" +
+                        "<div class='w-60px mr-3'>" +
+                        "<img src='"+ data[0]['product_img'] +"' alt='" + data[0]['product_img'] + "'>" +
+                        "</div>" +
+                        "<div class='media-body d-flex'>" +
+                        "<div class='cart-price pr-6'>" +
+                            "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$" + data[0]['product_price'] + "" +
+                            "</p>" +
+                            "<a href='' class='text-secondary'>" + data[0]['product_name'] + "</a>" +
+                            "</div>" +
+                            "<div class='position-relative ml-auto'>" +
+                            "<div class='input-group'>" +
+                            "<a href='' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
+                            "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + data[0]['id'] + "'>" +
+                            "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + dataa[i]['quantity'] + "'>" +
+                            "<a href='' class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
+                            "</a>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>";
+                            price =price + parseInt(data[0]['product_price']);
+                            $("#addcart").append(d);
+                            $("#totalprice").append("$ " +price);
+                            console.log("price is ",price);
+
+                    });
+
+                    
+                }
+            }else{
+                let d = "<div class='mb-4 d-flex'>" +
+                        "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
+                        "<div class='media w-100'>" +
+                        "<div class='w-60px mr-3'>" +
+                        "<img src='' alt=''>" +
+                        "</div>" +
+                        "<div class='media-body d-flex'>" +
+                        "<div class='cart-price pr-6'>" +
+                            "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$0" +
+                            "</p>" +
+                            "<a href='' class='text-secondary'>Please Add Product To Cart</a>" +
+                            "</div>" +
+                            "<div class='position-relative ml-auto'>" +
+                            "<div class='input-group'>" +
+                            "<a href='' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
+                            "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
+                            "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
+                            "<a href='' class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
+                            "</a>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>";
+                            price =0;
+                            $("#addcart").append(d);
+                            $("#totalprice").append("$ " +price);
+            }
+
+            });
+    }
+   
 </script>
 
 <!-- Mirrored from templates.g5plus.net/glowing/home-02.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Feb 2023 11:42:10 GMT -->

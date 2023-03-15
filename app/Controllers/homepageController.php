@@ -8,13 +8,16 @@ use App\Models\featuredCollectionModel;
 use App\Models\productModel;
 use App\Models\userModel;
 use CodeIgniter\Encryption\Encryption;
+use Exception;
 
 class homepageController extends BaseController
 {
     protected $db;
+    protected $session;
     public function __construct()
     {
         $this->db = db_connect();
+        $this->session = session();
     }
     public function sendemail()
     {
@@ -41,13 +44,13 @@ class homepageController extends BaseController
         }
     }
 
-    public function getproductdata(){
+    public function getproductdata()
+    {
         $id = $this->request->getVar();
-            $userModel = new productModel();
-            $data = $userModel->where($id)->find();
-            // print_r($data);
-            return json_encode($data);
-
+        $userModel = new productModel();
+        $data = $userModel->where($id)->find();
+        // print_r($data);
+        return json_encode($data);
     }
 
     public function index()
@@ -58,8 +61,8 @@ class homepageController extends BaseController
         $categorydata = $homepageController->getCategoryData();
         $featuredCollectionModel = $homepageController->getfeaturedCollectionData();
         $bannerModel = $homepageController->getBannerModel();
-        $featureProduct=$homepageController->getFeatureProduct();
-        return view('index', ['categories' => $categorydata, 'featured' => $featuredCollectionModel, 'bannerModel' => $bannerModel,'featureProduct'=>$featureProduct]);
+        $featureProduct = $homepageController->getFeatureProduct();
+        return view('index', ['categories' => $categorydata, 'featured' => $featuredCollectionModel, 'bannerModel' => $bannerModel, 'featureProduct' => $featureProduct]);
     }
 
     public function getFeatureProduct()
@@ -168,5 +171,99 @@ class homepageController extends BaseController
         $session = session();
         $session->destroy();
         return redirect()->to('/home');
+    }
+
+    public function checkcarthasid($id){
+        $arrayy= $this->session->get('cart');
+        $i=0;
+        foreach($arrayy as $element){
+            // echo "hello hell";
+            // print_r($element['id']);
+            // die();
+            if($element["id"] == $id){
+               return [
+                "status"=>true,
+                "id"=>$i
+               ];
+            }
+            $i++;
+        }
+
+         return [
+                "status"=>false,
+                "id"=>0
+               ];
+    }
+
+    public function saveproductcart()
+    {
+        // print_r($this->session->get('cart'));
+        $isValid = ['id' => 'required|is_natural|integer'];
+        if ($this->validate($isValid)) {
+            $id = $this->request->getVar()['id'] ;
+            $data = [
+                "id" => $id,
+                "quantity"=>1
+            ];
+            $dataa = [
+                "id" => $id
+            ];
+            if ($this->session->get('cart')) {
+                $homepageController= new homepageController();
+                // echo $homepageController->checkcarthasid($id);
+                $newdata= $this->session->get('cart');
+                // print_r($homepageController->checkcarthasid(11)['status']);
+                if($homepageController->checkcarthasid($id)['status']){
+                    // echo "am ";
+                    // echo $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'];
+                    // die();
+                    $newdata[$homepageController->checkcarthasid($id)['id']]['quantity']=$newdata[$homepageController->checkcarthasid($id)['id']]['quantity']+1;
+                    $this->session->set('cart',$newdata);
+                    return true;
+                    // echo $newdata[$homepageController->checkcarthasid($id)]['quantity'];
+                    
+                }else{
+                    $this->session->push('cart', [$data]);
+                    return true;
+                    // echo "here i am ";
+                }
+                // if(){
+                //     $indexx= array_search($dataa,$this->session->get('cart'));
+                //     echo "id present->" . $indexx;
+                // }else{
+                //     echo "not present";
+                // }
+                    // if(in_array($dataa,$this->session->get('cart'))){
+                    //     echo "yes";
+                    //     // $indexx= array_search($dataa,$this->session->get('cart'));
+                    //     // // echo "This is inddex" . $indexx;
+                    //     // echo "here it is";
+                    //     // $newdata=$this->session->get('cart');
+                    //     // $newdata[$indexx]['quantity']=$newdata[$indexx]['quantity']+1;
+                    //     // print_r($newdata[$indexx]);
+                    //     // $this->session->set('cart',$newdata);
+                    // }else{
+                    //     echo "no";
+                    //     // $this->session->push('cart', [$data]);
+                    // }
+                
+                // print_r($this->session->get('cart'));
+                // die();
+            } else {
+                echo "else block";
+                $this->session->set('cart', [$data]);
+            }
+        }
+    }
+    public function getsessioncart(){
+        return json_encode( $this->session->get('cart'));
+    }
+    public function getCart()
+    {
+        print_r($this->session->get('cart'));
+    }
+    public function removeCart()
+    {
+        $this->session->remove('cart');
     }
 }

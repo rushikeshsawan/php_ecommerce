@@ -35,6 +35,10 @@ $routes->get('/logout','homepageController::logout');
 $routes->post('/login','homepageController::login');
 $routes->post('/sign-up','homepageController::signup');
 $routes->post('getproductdata','homepageController::getproductdata');
+$routes->post('saveproductcart','homepageController::saveproductcart');
+$routes->post('getCart','homepageController::getCart');
+$routes->post('removeCart','homepageController::removeCart');
+$routes->post('getsessioncart','homepageController::getsessioncart');
 
 /*
  * --------------------------------------------------------------------
