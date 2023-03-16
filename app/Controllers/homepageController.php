@@ -11,6 +11,9 @@ use CodeIgniter\Encryption\Encryption;
 use Exception;
 
 
+/**
+ * Summary of homepageController
+ */
 class homepageController extends BaseController
 {
     protected $db;
@@ -201,9 +204,14 @@ class homepageController extends BaseController
 
     public function saveproductcart()
     {
-        // print_r($this->session->get('cart'));
         $isValid = ['id' => 'required|is_natural|integer'];
         if ($this->validate($isValid)) {
+            if ($this->request->getVar()['quantity'] && $this->request->getVar()['quantity'] > 0) {
+
+                $quantity = $this->request->getVar()['quantity'];
+            } else {
+                $quantity = 1;
+            }
             $id = $this->request->getVar()['id'];
             $data = [
                 "id" => $id,
@@ -214,47 +222,17 @@ class homepageController extends BaseController
             ];
             if ($this->session->get('cart')) {
                 $homepageController = new homepageController();
-                // echo $homepageController->checkcarthasid($id);
                 $newdata = $this->session->get('cart');
-                // print_r($homepageController->checkcarthasid(11)['status']);
                 if ($homepageController->checkcarthasid($id)['status']) {
-                    // echo "am ";
-                    // echo $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'];
-                    // die();
-                    $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'] = $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'] + 1;
+
+                    $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'] = $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'] + $quantity;
                     $this->session->set('cart', $newdata);
                     return true;
-                    // echo $newdata[$homepageController->checkcarthasid($id)]['quantity'];
-
                 } else {
                     $this->session->push('cart', [$data]);
                     return true;
-                    // echo "here i am ";
                 }
-                // if(){
-                //     $indexx= array_search($dataa,$this->session->get('cart'));
-                //     echo "id present->" . $indexx;
-                // }else{
-                //     echo "not present";
-                // }
-                // if(in_array($dataa,$this->session->get('cart'))){
-                //     echo "yes";
-                //     // $indexx= array_search($dataa,$this->session->get('cart'));
-                //     // // echo "This is inddex" . $indexx;
-                //     // echo "here it is";
-                //     // $newdata=$this->session->get('cart');
-                //     // $newdata[$indexx]['quantity']=$newdata[$indexx]['quantity']+1;
-                //     // print_r($newdata[$indexx]);
-                //     // $this->session->set('cart',$newdata);
-                // }else{
-                //     echo "no";
-                //     // $this->session->push('cart', [$data]);
-                // }
-
-                // print_r($this->session->get('cart'));
-                // die();
             } else {
-                echo "else block";
                 $this->session->set('cart', [$data]);
             }
         }
@@ -288,6 +266,8 @@ class homepageController extends BaseController
                 $newdata[$result['id']]['quantity'] = $newdata[$result['id']]['quantity'] - 1;
                 $this->session->set('cart', $newdata);
             }
+        } else {
+            return;
         }
     }
 
@@ -302,6 +282,8 @@ class homepageController extends BaseController
             $newdata = $this->session->get('cart');
             $newdata[$result['id']]['quantity'] = $newdata[$result['id']]['quantity'] + 1;
             $this->session->set('cart', $newdata);
+        } else {
+            return;
         }
     }
     public function deleteproductfromcart()
@@ -315,5 +297,23 @@ class homepageController extends BaseController
         $newdata = array_values($newdata);
         $this->session->set('cart', $newdata);
         return 1;
+    }
+
+    /**
+     * @param mixed $session 
+     * @return self
+     */
+    public function setSession($session): self
+    {
+        $this->session = $session;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSession()
+    {
+        return $this->session;
     }
 }

@@ -1387,11 +1387,11 @@
             <!--  -->
             <div class="card-body px-6 pt-7 overflow-y-auto">
 
-                
+
                 <div id="addcart">
 
                 </div>
-               
+
             </div>
             <div class="card-footer mt-auto border-0 bg-transparent px-6 pb-0 pt-5">
                 <div class="d-flex align-items-center mb-2">
@@ -1766,6 +1766,9 @@ if (session()->get('error')) {
 }
 ?>
 <script>
+    $(document).ready(function() {
+        cart();
+    });
     var idd;
 
     function viewproduct(id) {
@@ -1785,151 +1788,143 @@ if (session()->get('error')) {
     }
 
     function addtobag() {
+        let quantity = $("#quickview-number").val();
         $.post("/saveproductcart", {
-                id: idd
+                id: idd,
+                quantity: quantity
             },
             function(data, status) {
                 console.log(data, status);
-                if(status=='success'){
+                if (status == 'success') {
                     alert("Added to Cart");
                 }
 
             });
-        $.post("/getCart",
-            function(data, status) {
-                console.log(data, status);
-
-            });
     }
 
- 
+
 
     function cart() {
         $.post("/getsessioncart",
             function(data, status) {
                 let dataa = jQuery.parseJSON(data);
                 $("#addcart").empty();
-                var price=0;
-                console.log('------------------');
-                console.log(Array.isArray(dataa));
-                console.log('------------------');
-                console.log(dataa.length);
-                if(Array.isArray(dataa) && dataa.length){
+                var price = 0;
+                if (Array.isArray(dataa) && dataa.length) {
 
-                
-                for (let i = 0; i < dataa.length; i++) {
-                    $.post("/getproductdata", {
-                        id: dataa[i]['id']
-                    }, function(data, status) {
-                        data = jQuery.parseJSON(data);
-                        $("#totalprice").empty();
-                        
-                        let d = "<div class='mb-4 d-flex'>" +
-                        "<a href='#' onclick='deleteproductfromcart("+data[0]['id']+")' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
+
+                    for (let i = 0; i < dataa.length; i++) {
+                        $.post("/getproductdata", {
+                            id: dataa[i]['id']
+                        }, function(data, status) {
+                            data = jQuery.parseJSON(data);
+                            $("#totalprice").empty();
+
+                            let d = "<div class='mb-4 d-flex'>" +
+                                "<a href='#' onclick='deleteproductfromcart(" + data[0]['id'] + ")' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
+                                "<div class='media w-100'>" +
+                                "<div class='w-60px mr-3'>" +
+                                "<img src='" + data[0]['product_img'] + "' alt='" + data[0]['product_img'] + "'>" +
+                                "</div>" +
+                                "<div class='media-body d-flex'>" +
+                                "<div class='cart-price pr-6'>" +
+                                "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$" + data[0]['product_price'] + "" +
+                                "</p>" +
+                                "<a href='' class='text-secondary'>" + data[0]['product_name'] + "</a>" +
+                                "</div>" +
+                                "<div class='position-relative ml-auto'>" +
+                                "<div class='input-group'>" +
+                                "<a href='#' onclick='decrementcartproduct(" + data[0]['id'] + ")' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
+                                "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + data[0]['id'] + "'>" +
+                                "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + dataa[i]['quantity'] + "'>" +
+                                "<a href='#'  onclick='incrementcartproduct(" + data[0]['id'] + ")'  class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
+                                "</a>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>";
+                            price = price + (parseInt(data[0]['product_price']) * parseInt(dataa[i]['quantity']));
+                            $("#addcart").append(d);
+                            $("#totalprice").append("$ " + price);
+
+                        });
+
+
+                    }
+                } else {
+                    $("#totalprice").empty();
+                    let d = "<div class='mb-4 d-flex'>" +
+                        "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
                         "<div class='media w-100'>" +
                         "<div class='w-60px mr-3'>" +
-                        "<img src='"+ data[0]['product_img'] +"' alt='" + data[0]['product_img'] + "'>" +
+                        "<img src='' alt=''>" +
                         "</div>" +
                         "<div class='media-body d-flex'>" +
                         "<div class='cart-price pr-6'>" +
-                        "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$" + data[0]['product_price'] + "" +
+                        "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'></span>$0" +
                         "</p>" +
-                        "<a href='' class='text-secondary'>" + data[0]['product_name'] + "</a>" +
-                            "</div>" +
-                            "<div class='position-relative ml-auto'>" +
-                            "<div class='input-group'>" +
-                            "<a href='#' onclick='decrementcartproduct("+data[0]['id']+")' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
-                            "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + data[0]['id'] + "'>" +
-                            "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + dataa[i]['quantity'] + "'>" +
-                            "<a href='#'  onclick='incrementcartproduct("+data[0]['id'] +")'  class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
-                            "</a>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>";
-                            price =price + (parseInt(data[0]['product_price'])* parseInt(dataa[i]['quantity']));
-                            $("#addcart").append(d);
-                            $("#totalprice").append("$ " +price);
-                            console.log("price is ",price);
-                            
-                        });
-                        
-                    
+                        "<a href='' class='text-secondary'>Please Add Product To Cart</a>" +
+                        "</div>" +
+                        "<div class='position-relative ml-auto'>" +
+                        "<div class='input-group'>" +
+                        "<a href='#' onclick='decrementcartproduct(" + data[0]['id'] + ")'  class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
+                        "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
+                        "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
+                        "<a href='#'onclick='incrementcartproduct(" + data[0]['id'] + ")'  class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
+                        "</a>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>";
+                    price = 0;
+                    $("#addcart").append(d);
+                    $("#totalprice").append("$ " + price);
                 }
-            }else{
-                $("#totalprice").empty();
-                let d = "<div class='mb-4 d-flex'>" +
-                "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
-                "<div class='media w-100'>" +
-                "<div class='w-60px mr-3'>" +
-                "<img src='' alt=''>" +
-                "</div>" +
-                        "<div class='media-body d-flex'>" +
-                        "<div class='cart-price pr-6'>" +
-                            "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'></span>$0" +
-                            "</p>" +
-                            "<a href='' class='text-secondary'>Please Add Product To Cart</a>" +
-                            "</div>" +
-                            "<div class='position-relative ml-auto'>" +
-                            "<div class='input-group'>" +
-                            "<a href='#' onclick='decrementcartproduct("+data[0]['id']+")'  class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
-                            "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
-                            "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
-                            "<a href='#'onclick='incrementcartproduct("+data[0]['id'] +")'  class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
-                            "</a>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>" +
-                            "</div>";
-                            price =0;
-                            $("#addcart").append(d);
-                            $("#totalprice").append("$ " +price);
-            }
 
             });
     }
 
-    function deleteproductfromcart(id){
-        $.post('/deleteproductfromcart',{
-            id:id   
-        },function(data,status){
-            console.log(data,status);
-        })
-        cart();
+
+    function deleteproductfromcart(id) {
+        $.post('/deleteproductfromcart', {
+            id: id
+        }, function(data, status) {
+            console.log(data, status);
+            cart();
+        });
     }
 
-    function decrementcartproduct(id){
-        $.post('/decrementproductcart',{
-            id:id
-        },function(data,status){
+    function decrementcartproduct(id) {
+        $.post('/decrementproductcart', {
+            id: id
+        }, function(data, status) {
             console.log('decrementcart product');
-            console.log(data,status);
-            if(status){
+            console.log(data, status);
+            if (status) {
                 cart();
                 // alert("One Item Decremented Successfully");
             }
         })
     }
-    function incrementcartproduct(id){
-        $.post('/incrementproductcart',{
-            id:id
-        },function(data,status){
+
+    function incrementcartproduct(id) {
+        $.post('/incrementproductcart', {
+            id: id
+        }, function(data, status) {
             console.log('incrementcart product');
-            console.log(data,status);
-            if(status){
+            console.log(data, status);
+            if (status) {
                 cart();
-                // alert("One Item incremented Successfully");
             }
         })
     }
-    $(document).ready(function(){
-        cart();
-    });
-   
 </script>
 
-<!-- Mirrored from templates.g5plus.net/glowing/home-02.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Feb 2023 11:42:10 GMT -->
+
+
+
+
 
 </html>
