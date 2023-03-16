@@ -17,7 +17,6 @@
     <meta name="generator" content="Jekyll">
     <title>Dp Jewels</title>
 
-    <script src="../cdn-cgi/apps/head/2oc_RD5SS6wgN5SiQnSEnWVNHg8.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url() ?>vendors/fontawesome-pro-5/css/all.css">
     <link rel="stylesheet" href="<?= base_url() ?>vendors/bootstrap-select/css/bootstrap-select.min.css">
@@ -1791,6 +1790,9 @@ if (session()->get('error')) {
             },
             function(data, status) {
                 console.log(data, status);
+                if(status=='success'){
+                    alert("Added to Cart");
+                }
 
             });
         $.post("/getCart",
@@ -1808,6 +1810,10 @@ if (session()->get('error')) {
                 let dataa = jQuery.parseJSON(data);
                 $("#addcart").empty();
                 var price=0;
+                console.log('------------------');
+                console.log(Array.isArray(dataa));
+                console.log('------------------');
+                console.log(dataa.length);
                 if(Array.isArray(dataa) && dataa.length){
 
                 
@@ -1819,57 +1825,58 @@ if (session()->get('error')) {
                         $("#totalprice").empty();
                         
                         let d = "<div class='mb-4 d-flex'>" +
-                        "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
+                        "<a href='#' onclick='deleteproductfromcart("+data[0]['id']+")' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
                         "<div class='media w-100'>" +
                         "<div class='w-60px mr-3'>" +
                         "<img src='"+ data[0]['product_img'] +"' alt='" + data[0]['product_img'] + "'>" +
                         "</div>" +
                         "<div class='media-body d-flex'>" +
                         "<div class='cart-price pr-6'>" +
-                            "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$" + data[0]['product_price'] + "" +
-                            "</p>" +
-                            "<a href='' class='text-secondary'>" + data[0]['product_name'] + "</a>" +
+                        "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$" + data[0]['product_price'] + "" +
+                        "</p>" +
+                        "<a href='' class='text-secondary'>" + data[0]['product_name'] + "</a>" +
                             "</div>" +
                             "<div class='position-relative ml-auto'>" +
                             "<div class='input-group'>" +
-                            "<a href='' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
+                            "<a href='#' onclick='decrementcartproduct("+data[0]['id']+")' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
                             "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + data[0]['id'] + "'>" +
                             "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" + dataa[i]['quantity'] + "'>" +
-                            "<a href='' class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
+                            "<a href='#'  onclick='incrementcartproduct("+data[0]['id'] +")'  class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
                             "</a>" +
                             "</div>" +
                             "</div>" +
                             "</div>" +
                             "</div>" +
                             "</div>";
-                            price =price + parseInt(data[0]['product_price']);
+                            price =price + (parseInt(data[0]['product_price'])* parseInt(dataa[i]['quantity']));
                             $("#addcart").append(d);
                             $("#totalprice").append("$ " +price);
                             console.log("price is ",price);
-
-                    });
-
+                            
+                        });
+                        
                     
                 }
             }else{
+                $("#totalprice").empty();
                 let d = "<div class='mb-4 d-flex'>" +
-                        "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
-                        "<div class='media w-100'>" +
-                        "<div class='w-60px mr-3'>" +
-                        "<img src='' alt=''>" +
-                        "</div>" +
+                "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
+                "<div class='media w-100'>" +
+                "<div class='w-60px mr-3'>" +
+                "<img src='' alt=''>" +
+                "</div>" +
                         "<div class='media-body d-flex'>" +
                         "<div class='cart-price pr-6'>" +
-                            "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'>$39.00</span>$0" +
+                            "<p class='fs-14 font-weight-bold text-secondary mb-1'><span class='font-weight-500 fs-13 text-line-through text-body mr-1'></span>$0" +
                             "</p>" +
                             "<a href='' class='text-secondary'>Please Add Product To Cart</a>" +
                             "</div>" +
                             "<div class='position-relative ml-auto'>" +
                             "<div class='input-group'>" +
-                            "<a href='' class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
+                            "<a href='#' onclick='decrementcartproduct("+data[0]['id']+")'  class='down position-absolute pos-fixed-left-center pl-2'><i class='far fa-minus'></i></a>" +
                             "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
                             "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='0'>" +
-                            "<a href='' class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
+                            "<a href='#'onclick='incrementcartproduct("+data[0]['id'] +")'  class='up position-absolute pos-fixed-right-center pr-2'><i class='far fa-plus'></i>" +
                             "</a>" +
                             "</div>" +
                             "</div>" +
@@ -1883,6 +1890,43 @@ if (session()->get('error')) {
 
             });
     }
+
+    function deleteproductfromcart(id){
+        $.post('/deleteproductfromcart',{
+            id:id   
+        },function(data,status){
+            console.log(data,status);
+        })
+        cart();
+    }
+
+    function decrementcartproduct(id){
+        $.post('/decrementproductcart',{
+            id:id
+        },function(data,status){
+            console.log('decrementcart product');
+            console.log(data,status);
+            if(status){
+                cart();
+                // alert("One Item Decremented Successfully");
+            }
+        })
+    }
+    function incrementcartproduct(id){
+        $.post('/incrementproductcart',{
+            id:id
+        },function(data,status){
+            console.log('incrementcart product');
+            console.log(data,status);
+            if(status){
+                cart();
+                // alert("One Item incremented Successfully");
+            }
+        })
+    }
+    $(document).ready(function(){
+        cart();
+    });
    
 </script>
 

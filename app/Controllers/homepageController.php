@@ -10,6 +10,7 @@ use App\Models\userModel;
 use CodeIgniter\Encryption\Encryption;
 use Exception;
 
+
 class homepageController extends BaseController
 {
     protected $db;
@@ -19,6 +20,7 @@ class homepageController extends BaseController
         $this->db = db_connect();
         $this->session = session();
     }
+
     public function sendemail()
     {
         echo    date("Y-m-d h:i:sa") . "<br>";
@@ -169,30 +171,32 @@ class homepageController extends BaseController
     public function logout()
     {
         $session = session();
-        $session->destroy();
+        $session->remove('user_id');
+        // $session->destroy();
         return redirect()->to('/home');
     }
 
-    public function checkcarthasid($id){
-        $arrayy= $this->session->get('cart');
-        $i=0;
-        foreach($arrayy as $element){
+    public function checkcarthasid($id)
+    {
+        $arrayy = $this->session->get('cart');
+        $i = 0;
+        foreach ($arrayy as $element) {
             // echo "hello hell";
             // print_r($element['id']);
             // die();
-            if($element["id"] == $id){
-               return [
-                "status"=>true,
-                "id"=>$i
-               ];
+            if ($element["id"] == $id) {
+                return [
+                    "status" => true,
+                    "id" => $i
+                ];
             }
             $i++;
         }
 
-         return [
-                "status"=>false,
-                "id"=>0
-               ];
+        return [
+            "status" => false,
+            "id" => 0
+        ];
     }
 
     public function saveproductcart()
@@ -200,29 +204,29 @@ class homepageController extends BaseController
         // print_r($this->session->get('cart'));
         $isValid = ['id' => 'required|is_natural|integer'];
         if ($this->validate($isValid)) {
-            $id = $this->request->getVar()['id'] ;
+            $id = $this->request->getVar()['id'];
             $data = [
                 "id" => $id,
-                "quantity"=>1
+                "quantity" => 1
             ];
             $dataa = [
                 "id" => $id
             ];
             if ($this->session->get('cart')) {
-                $homepageController= new homepageController();
+                $homepageController = new homepageController();
                 // echo $homepageController->checkcarthasid($id);
-                $newdata= $this->session->get('cart');
+                $newdata = $this->session->get('cart');
                 // print_r($homepageController->checkcarthasid(11)['status']);
-                if($homepageController->checkcarthasid($id)['status']){
+                if ($homepageController->checkcarthasid($id)['status']) {
                     // echo "am ";
                     // echo $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'];
                     // die();
-                    $newdata[$homepageController->checkcarthasid($id)['id']]['quantity']=$newdata[$homepageController->checkcarthasid($id)['id']]['quantity']+1;
-                    $this->session->set('cart',$newdata);
+                    $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'] = $newdata[$homepageController->checkcarthasid($id)['id']]['quantity'] + 1;
+                    $this->session->set('cart', $newdata);
                     return true;
                     // echo $newdata[$homepageController->checkcarthasid($id)]['quantity'];
-                    
-                }else{
+
+                } else {
                     $this->session->push('cart', [$data]);
                     return true;
                     // echo "here i am ";
@@ -233,20 +237,20 @@ class homepageController extends BaseController
                 // }else{
                 //     echo "not present";
                 // }
-                    // if(in_array($dataa,$this->session->get('cart'))){
-                    //     echo "yes";
-                    //     // $indexx= array_search($dataa,$this->session->get('cart'));
-                    //     // // echo "This is inddex" . $indexx;
-                    //     // echo "here it is";
-                    //     // $newdata=$this->session->get('cart');
-                    //     // $newdata[$indexx]['quantity']=$newdata[$indexx]['quantity']+1;
-                    //     // print_r($newdata[$indexx]);
-                    //     // $this->session->set('cart',$newdata);
-                    // }else{
-                    //     echo "no";
-                    //     // $this->session->push('cart', [$data]);
-                    // }
-                
+                // if(in_array($dataa,$this->session->get('cart'))){
+                //     echo "yes";
+                //     // $indexx= array_search($dataa,$this->session->get('cart'));
+                //     // // echo "This is inddex" . $indexx;
+                //     // echo "here it is";
+                //     // $newdata=$this->session->get('cart');
+                //     // $newdata[$indexx]['quantity']=$newdata[$indexx]['quantity']+1;
+                //     // print_r($newdata[$indexx]);
+                //     // $this->session->set('cart',$newdata);
+                // }else{
+                //     echo "no";
+                //     // $this->session->push('cart', [$data]);
+                // }
+
                 // print_r($this->session->get('cart'));
                 // die();
             } else {
@@ -255,8 +259,9 @@ class homepageController extends BaseController
             }
         }
     }
-    public function getsessioncart(){
-        return json_encode( $this->session->get('cart'));
+    public function getsessioncart()
+    {
+        return json_encode($this->session->get('cart'));
     }
     public function getCart()
     {
@@ -265,5 +270,50 @@ class homepageController extends BaseController
     public function removeCart()
     {
         $this->session->remove('cart');
+    }
+
+
+    public function decrementproductcart()
+    {
+        $id = $this->request->getVar()['id'];
+        $homepageController = new homepageController();
+        $result = $homepageController->checkcarthasid($id);
+        if ($result['status']) {
+            $newdata = $this->session->get('cart');
+            if ($newdata[$result['id']]['quantity'] == 1) {
+                unset($newdata[$result['id']]);
+                $newdata = array_values($newdata);
+                $this->session->set('cart', $newdata);
+            } else {
+                $newdata[$result['id']]['quantity'] = $newdata[$result['id']]['quantity'] - 1;
+                $this->session->set('cart', $newdata);
+            }
+        }
+    }
+
+
+    public function incrementproductcart()
+    {
+
+        $id = $this->request->getVar()['id'];
+        $homepageController = new homepageController();
+        $result = $homepageController->checkcarthasid($id);
+        if ($result['status']) {
+            $newdata = $this->session->get('cart');
+            $newdata[$result['id']]['quantity'] = $newdata[$result['id']]['quantity'] + 1;
+            $this->session->set('cart', $newdata);
+        }
+    }
+    public function deleteproductfromcart()
+    {
+
+        $id = $this->request->getVar()['id'];
+        $newdata = $this->session->get('cart');
+        $homeController = new homepageController();
+        $result = $homeController->checkcarthasid($id);
+        unset($newdata[$result['id']]);
+        $newdata = array_values($newdata);
+        $this->session->set('cart', $newdata);
+        return 1;
     }
 }

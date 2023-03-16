@@ -39,6 +39,9 @@ $routes->post('saveproductcart','homepageController::saveproductcart');
 $routes->post('getCart','homepageController::getCart');
 $routes->post('removeCart','homepageController::removeCart');
 $routes->post('getsessioncart','homepageController::getsessioncart');
+$routes->post('decrementproductcart','homepageController::decrementproductcart');
+$routes->post('incrementproductcart','homepageController::incrementproductcart');
+$routes->post('deleteproductfromcart','homepageController::deleteproductfromcart');
 
 /*
  * --------------------------------------------------------------------
