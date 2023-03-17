@@ -1399,7 +1399,7 @@
                     <span class="text-secondary fs-15">Total price:</span>
                     <span class="d-block ml-auto fs-24 font-weight-bold text-secondary" id="totalprice"></span>
                 </div>
-                <a href="" class="btn btn-secondary btn-block mb-3 bg-hover-primary border-hover-primary">Check
+                <a href="#" onclick="checkout()" class="btn btn-secondary btn-block mb-3 bg-hover-primary border-hover-primary">Check
                     Out</a>
                 <a href="shopping-cart.html" class="btn btn-outline-secondary btn-block">View Cart</a>
             </div>
@@ -1665,7 +1665,7 @@
                             </p>
                             <h2 class="fs-24 mb-2" id="product_name">Geometric Fleur CZ Diamond Ring</h2>
                             <div class="d-flex align-items-center flex-wrap mb-3 lh-12">
-                                <p class="mb-0 font-weight-600 text-secondary">4.86</p>
+                                <p class="mb-0 font-weight-600 text-secondary" id="star-rating"></p>
                                 <ul class="list-inline d-flex mb-0 px-3 rating-result">
                                     <li class="list-inline-item mr-0">
                                         <span class="text-primary fs-12 lh-2"><i class="fas fa-star"></i></span>
@@ -1710,7 +1710,7 @@
                                         <label class="text-secondary font-weight-600 mb-3" for="quickview-number">Quantity: </label>
                                         <div class="input-group position-relative w-100">
                                             <a href="" class="down position-absolute pos-fixed-left-center pl-4 z-index-2"><i class="far fa-minus"></i></a>
-                                            <input name="number" type="number" id="quickview-number" class="form-control w-100 px-6 text-center input-quality text-secondary h-60 fs-18 font-weight-bold border-0" value="1" required>
+                                            <input name="number" min="1" type="number" id="quickview-number" class="form-control w-100 px-6 text-center input-quality text-secondary h-60 fs-18 font-weight-bold border-0" value="1" required>
                                             <a href="" class="up position-absolute pos-fixed-right-center pr-4 z-index-2"><i class="far fa-plus"></i>
                                             </a>
                                         </div>
@@ -1766,6 +1766,56 @@ if (session()->get('error')) {
 <?php
 }
 ?>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script src="<?= base_url() ?>js/script.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    function checkout() {
+        $.post('/checkout', function(data, status) {
+            // console.log(data,status);
+            let dataa = jQuery.parseJSON(data);
+            // console.log(dataa);
+            // console.log(dataa.productid);
+            // console.log(dataa.productamount);
+            var totalAmount = parseInt(dataa.productamount) * 100;
+            var product_id = dataa.productid;
+            var product_name = "Darwin ";
+            var options = {
+                "key": "rzp_test_kY0fqwqbnc0MN7",
+                "currency": "INR",
+                "amount": totalAmount,
+                "name": product_name,
+                "description": "Test Transaction",
+                "handler": function(response) {
+                    alert(response.razorpay_payment_id);
+                    alert(response.razorpay_order_id);
+                    alert(response.razorpay_signature)
+                    console.log(response);
+                    console.log("razorpay_payment_id=> " + response.razorpay_payment_id + " Total amount =>" + totalAmount + "product id " + product_id);
+
+                },
+                "theme": {
+                    "color": "#F37254"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function(response) {
+                alert(response.error.code);
+                alert(response.error.description);
+                alert(response.error.source);
+                alert(response.error.step);
+                alert(response.error.reason);
+                alert(response.error.metadata.order_id);
+                alert(response.error.metadata.payment_id);
+            });
+            // document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            console.log(data, status);
+        })
+        // alert("hello world");
+    }
+</script>
 
 </html>

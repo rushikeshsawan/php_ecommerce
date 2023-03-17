@@ -29,19 +29,26 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/payment', 'paymentController::index');
+$routes->post('/callback', 'paymentController::callback');
+$routes->get('/success', 'paymentController::success');
+$routes->get('/failed', 'paymentController::failed');
 $routes->get('/', 'homepageController::index');
 $routes->get('/home','homepageController::index');
 $routes->get('/logout','homepageController::logout');
 $routes->post('/login','homepageController::login');
 $routes->post('/sign-up','homepageController::signup');
 $routes->post('getproductdata','homepageController::getproductdata');
-$routes->post('saveproductcart','homepageController::saveproductcart');
-$routes->post('getCart','homepageController::getCart');
-$routes->post('removeCart','homepageController::removeCart');
-$routes->post('getsessioncart','homepageController::getsessioncart');
-$routes->post('decrementproductcart','homepageController::decrementproductcart');
-$routes->post('incrementproductcart','homepageController::incrementproductcart');
-$routes->post('deleteproductfromcart','homepageController::deleteproductfromcart');
+$routes->post('saveproductcart','cartController::saveproductcart');
+$routes->post('getCart','cartController::getCart');
+$routes->post('removeCart','cartController::removeCart');
+$routes->post('getsessioncart','cartController::getsessioncart');
+$routes->post('decrementproductcart','cartController::decrementproductcart');
+$routes->post('incrementproductcart','cartController::incrementproductcart');
+$routes->post('deleteproductfromcart','cartController::deleteproductfromcart');
+$routes->get('checkout','cartController::checkout');
+$routes->post('checkout','cartController::checkout');
+$routes->get('checkpaymentsuccess','cartController::checkpaymentsuccess');
 
 /*
  * --------------------------------------------------------------------

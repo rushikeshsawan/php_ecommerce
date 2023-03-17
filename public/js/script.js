@@ -18,6 +18,7 @@ function viewproduct(id) {
       $("#product_desc").text(dataa[0]["product_desc"]);
       $(".product_img").attr("src", dataa[0]["product_img"]);
       $(".product_img").attr("href", dataa[0]["product_img"]);
+      $("#star-rating").text(dataa[0]["rating"]);
     }
   );
 }
@@ -33,8 +34,10 @@ function addtobag() {
     function (data, status) {
       console.log(data, status);
       if (status == "success") {
+        $("#quickview-number").val('1');
         cart();
-        alert("Added to Cart");
+        swal("Product Added to Cart!", "", "success");
+
       }
     }
   );
@@ -142,6 +145,7 @@ function cart() {
         "</div>";
       price = 0;
       $("#addcart").append(d);
+      $("#totalcart").text("0");
       $("#totalprice").append("$ " + price);
     }
   });
@@ -171,7 +175,6 @@ function decrementcartproduct(id) {
       console.log(data, status);
       if (status) {
         cart();
-        // alert("One Item Decremented Successfully");
       }
     }
   );
@@ -192,3 +195,4 @@ function incrementcartproduct(id) {
     }
   );
 }
+

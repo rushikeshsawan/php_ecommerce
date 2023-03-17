@@ -1,7 +1,7 @@
 <?php
 
-header("Location: /");
-die();
+// header("Location: /");
+// die();
 ?>
 
 <!DOCTYPE html>
