@@ -215,7 +215,7 @@ class homepageController extends BaseController
             $id = $this->request->getVar()['id'];
             $data = [
                 "id" => $id,
-                "quantity" => 1
+                "quantity" => $quantity
             ];
             $dataa = [
                 "id" => $id
