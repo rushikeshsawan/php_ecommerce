@@ -1752,6 +1752,10 @@
             </div>
         </div>
     </div>
+
+    <script src="<?= base_url() ?>js/script.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 </body>
 <?php
 if (session()->get('error')) {
@@ -1767,37 +1771,47 @@ if (session()->get('error')) {
 }
 ?>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<script src="<?= base_url() ?>js/script.js"></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <script>
     function checkout() {
-        $.post('/checkout', function(data, status) {
-            // console.log(data,status);
-            let dataa = jQuery.parseJSON(data);
-            // console.log(dataa);
-            // console.log(dataa.productid);
-            // console.log(dataa.productamount);
-            var totalAmount = parseInt(dataa.productamount) * 100;
-            var product_id = dataa.productid;
-            var product_name = "Darwin ";
-            var options = {
-                "key": "rzp_test_kY0fqwqbnc0MN7",
-                "currency": "INR",
-                "amount": totalAmount,
-                "name": product_name,
-                "description": "Test Transaction",
-                "handler": function(response) {
-                    alert(response.razorpay_payment_id);
-                    alert(response.razorpay_order_id);
-                    alert(response.razorpay_signature)
-                    console.log(response);
-                    console.log("razorpay_payment_id=> " + response.razorpay_payment_id + " Total amount =>" + totalAmount + "product id " + product_id);
+        var orderid;
+        var key;
+        $.post('/practicenew', function(data, status) {
+            console.log("hi now", data);
+            if (data == false) {
+                swal("Please login to checkout!", "", "error");
+                return;
+            } else {
+                data = jQuery.parseJSON(data);
+                console.log("success here");
+            }
+            orderid = data['id'];
+            key = data['key'];
+            console.log("here we go ", orderid, key);
 
+            var options = {
+                "key": key, // Enter the Key ID generated from the Dashboard
+                "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Darwin Platform",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function(response) {
+
+                    alert(response.razorpay_payment_id);
+                    alert("orderid=>" + response.razorpay_order_id);
+                    alert("signature " + response.razorpay_signature)
+                },
+                // "prefill": {
+                //     "name": "Gaurav Kumar",
+                //     "email": "gaurav.kumar@example.com",
+                //     "contact": "9000090000"
+                // },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
                 },
                 "theme": {
-                    "color": "#F37254"
+                    "color": "#3399cc"
                 }
             };
             var rzp1 = new Razorpay(options);
@@ -1812,10 +1826,67 @@ if (session()->get('error')) {
             });
             // document.getElementById('rzp-button1').onclick = function(e){
             rzp1.open();
-            console.log(data, status);
+            //     e.preventDefault();
         })
-        // alert("hello world");
     }
+</script>
+<script>
+    // function checkout() {
+    //     $.post('/checkout', function(data, status) {
+    //         // console.log(data,status);
+    //         let dataa = jQuery.parseJSON(data);
+    //         // console.log(dataa);
+    //         // console.log(dataa.productid);
+    //         // console.log(dataa.productamount);
+    //         var totalAmount = parseInt(dataa.productamount) * 100;
+    //         var product_id = dataa.productid;
+    //         var product_name = "Darwin ";
+    //         var options = {
+    //             "key": "rzp_test_kY0fqwqbnc0MN7",
+    //             "currency": "INR",
+    //             "amount": totalAmount,
+    //             "name": product_name,
+    //             "description": "Test Transaction",
+    //             "handler": function(response) {
+    //                 console.log(response);
+    //                 $.post('/checkpaymentsuccess',{ transactionid : response.razorpay_payment_id }, function(data,status){
+    //                     console.log(data);
+    //                     if(data=="success"){
+    //                         alert("success rushi");
+    //                     }else{
+    //                         alert('error rushi');
+    //                     }
+
+    //                 })
+    //                 alert(response.razorpay_payment_id);
+    //                 alert(response.razorpay_order_id);
+    //                 alert(response.razorpay_signature)
+    //                 console.log(response);
+    //                 console.log("razorpay_payment_id=> " + response.razorpay_payment_id + " Total amount =>" + totalAmount + "product id " + product_id);
+
+    //             },
+    //             "theme": {
+    //                 "color": "#F37254"
+    //             }
+    //         };
+    //         console.log("options",options);
+    //         var rzp1 = new Razorpay(options);
+    //         console.log("console here",rzp1);
+    //         rzp1.on('payment.failed', function(response) {
+    //             alert(response.error.code);
+    //             alert(response.error.description);
+    //             alert(response.error.source);
+    //             alert(response.error.step);
+    //             alert(response.error.reason);
+    //             alert(response.error.metadata.order_id);
+    //             alert(response.error.metadata.payment_id);
+    //         });
+    //         // document.getElementById('rzp-button1').onclick = function(e){
+    //         rzp1.open();
+    //         // console.log(data, status);
+    //     })
+    //     // alert("hello world");
+    // }
 </script>
 
 </html>

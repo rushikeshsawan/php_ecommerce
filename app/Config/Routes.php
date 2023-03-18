@@ -48,7 +48,8 @@ $routes->post('incrementproductcart','cartController::incrementproductcart');
 $routes->post('deleteproductfromcart','cartController::deleteproductfromcart');
 $routes->get('checkout','cartController::checkout');
 $routes->post('checkout','cartController::checkout');
-$routes->get('checkpaymentsuccess','cartController::checkpaymentsuccess');
+$routes->post('checkpaymentsuccess','cartController::checkpaymentsuccess');
+$routes->post('practicenew','cartController::practicenew');
 
 /*
  * --------------------------------------------------------------------

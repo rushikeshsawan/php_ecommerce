@@ -118,7 +118,7 @@ class cartController extends BaseController
         }
     }
 
- 
+
     public function incrementproductcart()
     {
 
@@ -148,26 +148,26 @@ class cartController extends BaseController
 
     public function checkout()
     {
-        
-        $cart=$this->session->get('cart');
-        $id=[];
-        $price=0;
-        foreach($cart as $product){
+
+        $cart = $this->session->get('cart');
+        $id = [];
+        $price = 0;
+        foreach ($cart as $product) {
             // $product['id'];
             // $product['quantity'];
-            $productModal= new productModel();
-            array_push($id,$product['id']);
+            $productModal = new productModel();
+            array_push($id, $product['id']);
             // $id .= $product['id'] . ",";
-            $result=$productModal->where('id',$product['id'])->first();
-            
+            $result = $productModal->where('id', $product['id'])->first();
+
             // print_r($result['product_price']);
             $price += $result['product_price'] * $product['quantity'];
             // echo "<br>";
         }
         // $id=substr(trim($id), 0, -1);
-        $data=[
-            "productid"=>$id,
-            "productamount"=>$price
+        $data = [
+            "productid" => $id,
+            "productamount" => $price
         ];
         // echo $price;
         // echo "<br>-------------------------";
@@ -182,28 +182,96 @@ class cartController extends BaseController
         // echo "Given Array is not empty <br>";
 
     }
-    public function checkpaymentsuccess(){
-        $transactionid= $this->request->getVar()['transactionid'];
-        $key= "rzp_test_kY0fqwqbnc0MN7";
-        $secret="zOIiFIciOrNylqJPr6jFu5vI";
-        $api =new Api($key,$secret);
+    public function checkpaymentsuccess()
+    {
+
+        $transactionid = $this->request->getVar()['transactionid'];
+        print_r($this->request->getVar());
+        die();
+        $key = "rzp_test_kY0fqwqbnc0MN7";
+        $secret = "zOIiFIciOrNylqJPr6jFu5vI";
+        $api = new Api($key, $secret);
         // print_r($api);
-        try{
+        try {
             // pay_LSbA0fPvzeyKtl failed 
             // pay_LSb4cBAfbfBVsE  success
-            $payment= $api->payment->fetch('pay_LSb4cBAfbfBVsE');
-            if($payment['status']==='authorized'){
+            $payment = $api->payment->fetch($transactionid);
+            if ($payment['status'] === 'authorized') {
                 echo "success";
-            }else{
+            } else {
                 echo "failed";
             }
-            print_r($payment);
-            die();
+            // print_r($payment);
+            // die();
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             print_r($e);
         }
-        die();
+        // die();
 
+    }
+    public function verifytransaction(){
+        $orderid=$this->session->get('orderid');
+        $paymentid= $this->request->getVar('paymentid');
+        $signature= $this->request->getVar('signature');
+        $secret="zOIiFIciOrNylqJPr6jFu5vI";
+    }
+    public function practicenew()
+    {
+        // $sig = hash_hmac('sha256',$this->session->get('orderid'). "|" ."pay_LStl9ji7lQzi7f" ,"zOIiFIciOrNylqJPr6jFu5vI");
+        // return json_encode($sig);
+        // die();
+        // {"id":"pay_IlZrJKzAkuT0Ir","entity":"payment","amount":14000,"currency":"INR","status":"captured","order_id":"order_IlZr4T6RtGpQr3","invoice_id":null,"international":false,"method":"upi","amount_refunded":0,"refund_status":null,"captured":true,"description":"Payment","card_id":null,"bank":null,"wallet":null,"vpa":"success@razorpay","email":"amritpal@gmail.com","contact":"+919619445461","notes":{},"fee":9,"tax":2,"error_code":null,"error_description":null,"error_source":null,"error_step":null,"error_reason":null,"acquirer_data":{},"created_at":1642590227,"authorized_at":1642590227,"auto_captured":true,"captured_at":1642590227,"late_authorized":false}
+
+        if ($this->session->get('user_id')) {
+            $userModel = new userModel();
+            $result = $userModel->where('id', $this->session->get('user_id'))->first();
+            $this->session->get('cart');
+            // return json_encode($this->session->get('cart'));
+            $cart = $this->session->get('cart');
+            $productModel = new productModel();
+            $productprice = 0;
+            $receipt = $this->session->get('user_id') . "-" . date("syhmid");
+
+            // return json_encode($receipt);
+            foreach ($cart as $product) {
+                $result = $productModel->where('id', $product['id'])->first();
+                $productprice += $result['product_price'] * $product['quantity'];
+                // echo json_encode($productprice);
+            }
+            // return;
+            // die();
+            // orderid order_LSta2maj1sVU5X
+            // payment id pay_LStaLLNlfA2qaX
+            //  signature a9b9b595536aadb23d4f72bb0765227b5151f1bab7679b6c7de86fc61cdae6e9
+            // order_LSta2maj1sVU5X
+
+            $key = "rzp_test_kY0fqwqbnc0MN7";
+            $secret = "zOIiFIciOrNylqJPr6jFu5vI";
+            $api = new Api($key, $secret);
+            $orderData = [
+                'receipt'         => $receipt,
+                'amount'          => $productprice * 100, // 39900 rupees in paise
+                'currency'        => 'INR'
+            ];
+
+            $razorpayOrder = $api->order->create($orderData);
+            $this->session->set('orderid',$razorpayOrder['id']);
+            $this->session->set('receiptid',$receipt);
+            // return json_encode([$this->session->get('orderid'), $this->session->get('receiptid')]);
+            // print_r($razorpayOrder);
+            // die();
+            
+            $data = [
+                "id" => $razorpayOrder['id'],
+                "key" => $key,
+            ];
+            return json_encode($data);
+        } else {
+            return "hello world";
+            return false;
+            // echo "hello world";
+            // redirect()->back()->withInput();
+        }
     }
 }

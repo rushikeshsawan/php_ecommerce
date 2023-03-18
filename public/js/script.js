@@ -3,7 +3,6 @@ $(document).ready(function () {
   cart();
 });
 
-
 function viewproduct(id) {
   $.post(
     "/getproductdata",
@@ -34,10 +33,9 @@ function addtobag() {
     function (data, status) {
       console.log(data, status);
       if (status == "success") {
-        $("#quickview-number").val('1');
+        $("#quickview-number").val("1");
         cart();
         swal("Product Added to Cart!", "", "success");
-
       }
     }
   );
@@ -78,7 +76,7 @@ function cart() {
               data[0]["product_price"] +
               "" +
               "</p>" +
-              "<a href='' class='text-secondary'>" +
+              "<a href='' class='text-secondary'>" +  
               data[0]["product_name"] +
               "</a>" +
               "</div>" +
@@ -90,7 +88,7 @@ function cart() {
               "<input type='hidden' name='id' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" +
               data[0]["id"] +
               "'>" +
-              "<input type='number' class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" +
+              "<input type='number' disabled class='number-cart w-90px px-6 text-center h-40px bg-input border-0' value='" +
               dataa[i]["quantity"] +
               "'>" +
               "<a href='#'  onclick='incrementcartproduct(" +
@@ -115,7 +113,7 @@ function cart() {
     } else {
       $("#totalprice").empty();
       let d =
-        "<div class='mb-4 d-flex'>" +
+        "<div class='mb-4 d-flex'>" + 
         "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
         "<div class='media w-100'>" +
         "<div class='w-60px mr-3'>" +
@@ -195,4 +193,3 @@ function incrementcartproduct(id) {
     }
   );
 }
-
