@@ -50,6 +50,7 @@ $routes->get('checkout','cartController::checkout');
 $routes->post('checkout','cartController::checkout');
 $routes->post('checkpaymentsuccess','cartController::checkpaymentsuccess');
 $routes->post('practicenew','cartController::practicenew');
+$routes->post('verifytransaction','cartController::verifytransaction');
 
 /*
  * --------------------------------------------------------------------

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\bannerModel;
 use App\Models\categoryModel;
+use App\Models\transactionsModel;
 use App\Models\featuredCollectionModel;
 use App\Models\productModel;
 use App\Models\userModel;
@@ -210,11 +211,78 @@ class cartController extends BaseController
         // die();
 
     }
-    public function verifytransaction(){
-        $orderid=$this->session->get('orderid');
-        $paymentid= $this->request->getVar('paymentid');
-        $signature= $this->request->getVar('signature');
-        $secret="zOIiFIciOrNylqJPr6jFu5vI";
+    public function verifytransaction()
+    {
+        $key = "rzp_test_kY0fqwqbnc0MN7";
+        $secret = "zOIiFIciOrNylqJPr6jFu5vI";
+        $api = new Api($key, $secret);
+        // print_r($this->request->getVar('response'));
+        // die();
+        $orderid = $this->session->get('orderid');
+        $paymentid = $this->request->getVar('paymentid');
+        $signature = $this->request->getVar('signature');
+        $amount = $this->request->getVar('amount');
+        $secret = "zOIiFIciOrNylqJPr6jFu5vI";
+        $generated_signature = hash_hmac("sha256", $orderid . "|" . $paymentid, $secret);
+        // $generated_signature = hmac_sha256();
+
+
+        if ($generated_signature == $signature) {
+            try {
+                $result = $api->payment->fetch($paymentid);
+                // $result= json_encode($result);
+                $res = [
+                    "id" => $result['id'],
+                    "entity" => $result['entity'],
+                    "amount" => $result['amount'],
+                    "currency" => $result['currency'],
+                    "status" => $result['status'],
+                    "order_id" => $result['order_id'],
+                    "invoice_id" => $result['invoice_id'],
+                    "international" => $result['international'],
+                    "method" => $result['method'],
+                    "amount_refunded" => $result['amount_refunded'],
+                    "refund_status" => $result['refund_status'],
+                    "captured" => $result['captured'],
+                    "description" => $result['description'],
+                    "vpa" => $result['vpa'],
+                    "bank" => $result['bank'],
+                    "wallet" => $result['wallet'],
+                    "card_id" => $result['card_id'],
+                    "email" => $result['email'],
+                    "contact" => $result['contact'],
+                    "fee" => $result['fee'],
+                    "tax" => $result['tax'],
+                    "error_code" => $result['error_code'],
+                    "error_description" => $result['error_description'],
+                    "error_source" => $result['error_source'],
+                    "error_step" => $result['error_step'],
+                    "error_reason" => $result['error_reason'],
+                    "acquirer_data" => $result['acquirer_data'],
+                    "created_at" => $result['created_at'],
+                ];
+
+                $transactionModel = new transactionsModel();
+                $data = [
+                    "user_id" => $this->session->get('user_id'),
+                    "amount" => $amount,
+                    "payment_info" => json_encode($res),
+                    "payment_id" => $paymentid,
+                    "orderid" => $orderid
+                ];
+
+                if ($transactionModel->insert($data)) {
+                    echo "order successfull placed";
+                    $this->session->remove('orderid');
+                } else {
+                    echo "Order Failed";
+                }
+            } catch (Exception $e) {
+                print_r($e);
+            }
+        } else {
+            echo "Order Failed";
+        }
     }
     public function practicenew()
     {
@@ -256,19 +324,22 @@ class cartController extends BaseController
             ];
 
             $razorpayOrder = $api->order->create($orderData);
-            $this->session->set('orderid',$razorpayOrder['id']);
-            $this->session->set('receiptid',$receipt);
+            // print_r($razorpayOrder);
+            // die();
+            $this->session->set('orderid', $razorpayOrder['id']);
+            $this->session->set('receiptid', $receipt);
             // return json_encode([$this->session->get('orderid'), $this->session->get('receiptid')]);
             // print_r($razorpayOrder);
             // die();
-            
+
             $data = [
                 "id" => $razorpayOrder['id'],
                 "key" => $key,
+                "amount" => $productprice * 100
             ];
             return json_encode($data);
         } else {
-            return "hello world";
+            // return "hello world";
             return false;
             // echo "hello world";
             // redirect()->back()->withInput();

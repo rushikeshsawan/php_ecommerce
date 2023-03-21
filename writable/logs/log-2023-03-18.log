@@ -353,3 +353,259 @@ INFO - 2023-03-18 14:48:53 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2023-03-18 14:48:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-03-18 14:48:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-03-18 14:48:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:15:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2023-03-18 18:15:27 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\MySQLi\Connection.php:173
+Stack trace:
+#0 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\MySQLi\Connection.php(173): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'admin_panel', 3306, '', 0)
+#1 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\BaseConnection.php(391): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\BaseConnection.php(573): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\Darwin_jewels_codeigniter\app\Controllers\homepageController.php(88): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\Darwin_jewels_codeigniter\app\Controllers\homepageController.php(66): App\Controllers\homepageController->getCategoryData()
+#8 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\CodeIgniter.php(934): App\Controllers\homepageController->index()
+#9 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\homepageController))
+#10 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\Darwin_jewels_codeigniter\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\MySQLi\Connection.php:218
+Stack trace:
+#0 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\BaseConnection.php(391): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\BaseConnection.php(573): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\Darwin_jewels_codeigniter\app\Controllers\homepageController.php(88): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\Darwin_jewels_codeigniter\app\Controllers\homepageController.php(66): App\Controllers\homepageController->getCategoryData()
+#7 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\CodeIgniter.php(934): App\Controllers\homepageController->index()
+#8 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\homepageController))
+#9 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\Darwin_jewels_codeigniter\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\Darwin_jewels_codeigniter\system\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs...')
+#12 {main}
+CRITICAL - 2023-03-18 18:15:27 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 427.
+ 1 SYSTEMPATH\Database\BaseConnection.php(573): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `categories`', [], false)
+ 3 SYSTEMPATH\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH\Controllers\homepageController.php(88): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH\Controllers\homepageController.php(66): App\Controllers\homepageController->getCategoryData()
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\homepageController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\homepageController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:15:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:15:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:16:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:16:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:16:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:16:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:16:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:16:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:17:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:17:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:17:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:17:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:17:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:17:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:18:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:19:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:19:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:19:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:19:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:19:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:19:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:20:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:20:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:20:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:22:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:22:58 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:15 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:16 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:17 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:18 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:19 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:30 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-03-18 18:23:34 --> Amount exceeds maximum amount allowed.
+in VENDORPATH\razorpay\razorpay\src\Request.php on line 139.
+ 1 VENDORPATH\razorpay\razorpay\src\Request.php(109): Razorpay\Api\Request->processError([...], 400, Object(WpOrg\Requests\Response))
+ 2 VENDORPATH\razorpay\razorpay\src\Request.php(58): Razorpay\Api\Request->checkErrors(Object(WpOrg\Requests\Response))
+ 3 VENDORPATH\razorpay\razorpay\src\Entity.php(92): Razorpay\Api\Request->request('POST', 'https://api.razorpay.com/v1/orders/', [...])
+ 4 VENDORPATH\razorpay\razorpay\src\Entity.php(20): Razorpay\Api\Entity->request('POST', 'orders/', [...])
+ 5 VENDORPATH\razorpay\razorpay\src\Order.php(12): Razorpay\Api\Entity->create([...])
+ 6 APPPATH\Controllers\cartController.php(258): Razorpay\Api\Order->create([...])
+ 7 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\cartController->practicenew()
+ 8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cartController))
+ 9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+INFO - 2023-03-18 18:23:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:23:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-03-18 18:24:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

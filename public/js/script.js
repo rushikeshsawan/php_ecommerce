@@ -56,6 +56,7 @@ function cart() {
           function (data, status) {
             data = jQuery.parseJSON(data);
             $("#totalprice").empty();
+            $("#amount").empty();
 
             let d =
               "<div class='mb-4 d-flex'>" +
@@ -106,12 +107,16 @@ function cart() {
                 parseInt(dataa[i]["quantity"]);
             $("#addcart").append(d);
             $("#totalprice").append("$ " + price);
+            $("#amount").append("$ " + price);
+
           }
         );
       }
       $("#totalcart").text(dataa.length);
     } else {
       $("#totalprice").empty();
+      $("#amount").empty();
+
       let d =
         "<div class='mb-4 d-flex'>" + 
         "<a href='' class='d-flex align-items-center mr-2 text-muted'><i class='fal fa-times'></i></a>" +
@@ -145,6 +150,8 @@ function cart() {
       $("#addcart").append(d);
       $("#totalcart").text("0");
       $("#totalprice").append("$ " + price);
+      $("#amount").append("$ 0.00 ");
+
     }
   });
 }

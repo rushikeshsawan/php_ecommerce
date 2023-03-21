@@ -192,7 +192,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link position-relative px-4 menu-cart py-0 d-inline-flex align-items-center mr-n2" href="#" data-canvas="true" data-canvas-options='{"container":".cart-canvas"}'>
-                                            <span class="mr-2 font-weight-bold fs-15">$0.00</span>
+                                            <span class="mr-2 font-weight-bold fs-15" id="amount"></span>
                                             <svg class="icon icon-shopping-bag-open-light" onclick="">
                                                 <use xlink:href="#icon-shopping-bag-open-light"></use>
                                             </svg>
@@ -1784,32 +1784,33 @@ if (session()->get('error')) {
                 data = jQuery.parseJSON(data);
                 console.log("success here");
             }
-            orderid = data['id'];
-            key = data['key'];
+            let orderid = data['id'];
+            let key = data['key'];
+            let amount = data['amount'];
             console.log("here we go ", orderid, key);
 
             var options = {
                 "key": key, // Enter the Key ID generated from the Dashboard
-                "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 "currency": "INR",
                 "name": "Darwin Platform",
-                "description": "Test Transaction",
+                "description": "Jewelery",
                 "image": "https://example.com/your_logo",
                 "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                 "handler": function(response) {
+                    console.log("razorpay option response",response);
+                    $.post("/verifytransaction",{ paymentid: response.razorpay_payment_id, signature : response.razorpay_signature,response :response,amount :amount},function(data,status){
+                        console.log("verify transaction");
+                        console.log("------------------------");
+                        console.log(data,status);
+                    })
 
                     alert(response.razorpay_payment_id);
                     alert("orderid=>" + response.razorpay_order_id);
                     alert("signature " + response.razorpay_signature)
                 },
-                // "prefill": {
-                //     "name": "Gaurav Kumar",
-                //     "email": "gaurav.kumar@example.com",
-                //     "contact": "9000090000"
-                // },
-                "notes": {
-                    "address": "Razorpay Corporate Office"
-                },
+               
+               
                 "theme": {
                     "color": "#3399cc"
                 }
@@ -1825,7 +1826,10 @@ if (session()->get('error')) {
                 alert(response.error.metadata.payment_id);
             });
             // document.getElementById('rzp-button1').onclick = function(e){
-            rzp1.open();
+                rzp1.open();
+                console.log("hi rzp 1=>",rzp1);
+          
+            console.log("razorpay object",rzp1);
             //     e.preventDefault();
         })
     }
